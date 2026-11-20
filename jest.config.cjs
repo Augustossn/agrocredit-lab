@@ -1,0 +1,1 @@
+module.exports = {transform:{'^.+\\.tsx?$':['ts-jest',{tsconfig:{rootDir:'.'}}]},testEnvironment:'node',testMatch:['**/tests/**/*.spec.ts'],testPathIgnorePatterns:['/e2e/'],testTimeout:30000,collectCoverageFrom:['src/domain.ts','src/safety.ts','src/processor.ts']};

@@ -1,0 +1,19 @@
+name: agrocredit-lab-test
+services:
+  postgres:
+    image: postgres:17.10-alpine
+    environment: {POSTGRES_USER: agrolab, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: agrocredit_test}
+    ports: ["127.0.0.1:55433:5432"]
+    tmpfs: ["/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agrolab -d agrocredit_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  moto:
+    image: motoserver/moto:5.2.1
+    ports: ["127.0.0.1:15000:5000"]
+  elasticmq:
+    image: softwaremill/elasticmq:1.7.0
+    ports: ["127.0.0.1:19324:9324"]
+    volumes: ["./config/elasticmq-test.conf:/opt/elasticmq.conf:ro"]
